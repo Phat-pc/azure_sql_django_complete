@@ -96,7 +96,7 @@ DATABASES = {
         'HOST': 'phatcharida-admin.database.windows.net',
         'PORT': '1433',
         'OPTIONS': {
-            'driver': 'ODBC Driver 18 for SQL Server',
+            'driver': 'ODBC Driver 17 for SQL Server',
         },
     },
 }
