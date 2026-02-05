@@ -66,13 +66,14 @@ DATABASES = {
     'default': {
         'ENGINE': 'mssql',
         'NAME': 'pheerawit',
-        'USER': 'pheerawit',                 # your SQL admin login
-        'PASSWORD': 'nopeZAA1012123234',     # your SQL admin password
+        'USER': 'pheerawit',
+        'PASSWORD': 'nopeZAA1012123234',
         'HOST': 'pheerawit.database.windows.net',
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
-            'extra_params': 'Encrypt=yes;TrustServerCertificate=no;Connection Timeout=30;',
+            # CHANGE IS HERE: TrustServerCertificate=yes
+            'extra_params': 'Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=30;',
         },
     },
 }
