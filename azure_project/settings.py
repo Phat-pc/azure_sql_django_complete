@@ -80,7 +80,7 @@ DATABASES = {
 
 # MongoDB Configuration (same as before; adjust if needed)
 
-mongo_username = urllib.parse.quote_plus('pheerawit-admin')
+mongo_username = urllib.parse.quote_plus('pheerawit')
 mongo_password = urllib.parse.quote_plus('nopeZAA1012123234')
 MONGO_URI = (
     f'mongodb+srv://{mongo_username}:{mongo_password}'
