@@ -1,8 +1,10 @@
 #!/bin/bash
 set -e
 
-export PYTHONPATH=/home/site/wwwroot:$PYTHONPATH
+APP_DIR="$(cd "$(dirname "$0")" && pwd)"
+
+export PYTHONPATH=$APP_DIR:$PYTHONPATH
 export DJANGO_SETTINGS_MODULE=azure_project.settings
-cd /home/site/wwwroot
+cd "$APP_DIR"
 python manage.py migrate --noinput
-exec gunicorn azure_project.wsgi --workers 4 --threads 2 --worker-class sync --bind 0.0.0.0:8000
+exec gunicorn azure_project.wsgi --workers 4 --threads 2 --worker-class sync --bind 0.0.0.0:${PORT:-8000}

@@ -23,7 +23,7 @@ Deploy directly from your local Git repository or VS Code to Azure App Service (
 1. **Startup Command**:
    Configure the startup command in the Azure Portal > **Configuration** > **General Settings** > **Startup Command**:
    ```bash
-    ./startup.sh
+    bash startup.sh
    ```
     This ensures `python manage.py migrate --noinput` runs before Gunicorn so SQL tables are created automatically.
     Dependency installation should happen during deployment/build, not in startup.
