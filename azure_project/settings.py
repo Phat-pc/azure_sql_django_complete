@@ -62,10 +62,14 @@ WSGI_APPLICATION = 'azure_project.wsgi.application'
 
 # Database - SQLite (default for local development)
 
+SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH', os.path.join(BASE_DIR, 'db.sqlite3'))
+if os.getenv('WEBSITE_SITE_NAME'):
+    SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH', '/home/site/wwwroot/db.sqlite3')
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'NAME': SQLITE_DB_PATH,
     },
 }
 

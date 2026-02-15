@@ -23,8 +23,9 @@ Deploy directly from your local Git repository or VS Code to Azure App Service (
 1. **Startup Command**:
    Configure the startup command in the Azure Portal > **Configuration** > **General Settings** > **Startup Command**:
    ```bash
-   gunicorn --bind=0.0.0.0 --timeout 600 azure_project.wsgi
+    ./startup.sh
    ```
+    This ensures `python manage.py migrate --noinput` runs before Gunicorn so SQL tables are created automatically.
 
 2.  **Environment Variables**:
     Set `App Settings` in the Azure Portal for your database credentials. **This is critical** for connecting to production databases:
