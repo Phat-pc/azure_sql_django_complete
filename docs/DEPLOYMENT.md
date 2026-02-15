@@ -26,6 +26,7 @@ Deploy directly from your local Git repository or VS Code to Azure App Service (
     ./startup.sh
    ```
     This ensures `python manage.py migrate --noinput` runs before Gunicorn so SQL tables are created automatically.
+    Dependency installation should happen during deployment/build, not in startup.
 
 2.  **Environment Variables**:
     Set `App Settings` in the Azure Portal for your database credentials. **This is critical** for connecting to production databases:
