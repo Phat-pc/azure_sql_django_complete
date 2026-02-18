@@ -10,9 +10,9 @@ from decouple import config
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-SECRET_KEY = 'xzk$v$q2m1-^3b+^ck!6_hk4gmm$47c8zyzo@-o35spu*+shd$'
-DEBUG = True
-ALLOWED_HOSTS = ["*"]
+SECRET_KEY = config('SECRET_KEY', default='xzk$v$q2m1-^3b+^ck!6_hk4gmm$47c8zyzo@-o35spu*+shd$')
+DEBUG = config('DEBUG', default=True, cast=bool)
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='*').split(',')
 
 CORS_ALLOW_ALL_ORIGINS = True
 
@@ -60,34 +60,38 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'azure_project.wsgi.application'
 
-# Database - SQLite (default for local development)
+# Database Configuration - Uses environment variables in production
+# Check if running on Azure App Service
+USE_AZURE_SQL = config('USE_AZURE_SQL', default=False, cast=bool)
 
-SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH', os.path.join(BASE_DIR, 'db.sqlite3'))
-if os.getenv('WEBSITE_SITE_NAME'):
-    SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH', '/home/site/wwwroot/db.sqlite3')
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': SQLITE_DB_PATH,
-    },
-}
-
-# Uncomment below for Azure SQL Server
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'mssql',
-#         'NAME': 'pheerawit',
-#         'USER': 'pheerawit',
-#         'PASSWORD': 'nopeZAA1012123234',
-#         'HOST': 'pheerawit.database.windows.net',
-#         'PORT': '1433',
-#         'OPTIONS': {
-#             'driver': 'ODBC Driver 18 for SQL Server',
-#             'extra_params': 'Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=30;',
-#         },
-#     },
-# }
+if USE_AZURE_SQL:
+    # Azure SQL Server Configuration
+    DATABASES = {
+        'default': {
+            'ENGINE': 'mssql',
+            'NAME': config('DB_NAME', default='phatcharida-db'),
+            'USER': config('DB_USER', default='phatcharida-admin'),
+            'PASSWORD': config('DB_PASSWORD', default=''),
+            'HOST': config('DB_HOST', default='phatcharida.database.windows.net'),
+            'PORT': config('DB_PORT', default='1433'),
+            'OPTIONS': {
+                'driver': 'ODBC Driver 18 for SQL Server',
+                'extra_params': 'Encrypt=yes;TrustServerCertificate=yes;Connection Timeout=30;',
+            },
+        },
+    }
+else:
+    # SQLite Configuration (for local development)
+    SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH', os.path.join(BASE_DIR, 'db.sqlite3'))
+    if os.getenv('WEBSITE_SITE_NAME'):
+        SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH', '/home/site/wwwroot/db.sqlite3')
+    
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': SQLITE_DB_PATH,
+        },
+    }
 
 # MongoDB Configuration (use App Service environment variables in production)
 
