@@ -65,10 +65,10 @@ WSGI_APPLICATION = 'azure_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'mssql',
-        'NAME': 'pheerawit',
-        'USER': 'pheerawit',                 # your SQL admin login
-        'PASSWORD': 'nopeZAA1012123234',     # your SQL admin password
-        'HOST': 'pheerawit.database.windows.net',
+        'NAME': 'phatcharida-db',
+        'USER': 'phatcharida-admin',                 # your SQL admin login
+        'PASSWORD': 'Qcallis7!pc',     # your SQL admin password
+        'HOST': 'phatcharida-admin.database.windows.net',
         'PORT': '1433',
         'OPTIONS': {
             'driver': 'ODBC Driver 18 for SQL Server',
@@ -79,8 +79,8 @@ DATABASES = {
 
 # MongoDB Configuration (same as before; adjust if needed)
 
-mongo_username = urllib.parse.quote_plus('pheerawit-admin')
-mongo_password = urllib.parse.quote_plus('nopeZAA1012123234')
+mongo_username = urllib.parse.quote_plus('phatcharida')
+mongo_password = urllib.parse.quote_plus('Qcallis7!pc')
 MONGO_URI = (
     f'mongodb+srv://{mongo_username}:{mongo_password}'
     '@pheerawit.global.mongocluster.cosmos.azure.com/?tls=true&authMechanism=SCRAM-SHA-256&retrywrites=false&maxIdleTimeMS=120000'
