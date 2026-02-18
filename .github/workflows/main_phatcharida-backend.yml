@@ -73,4 +73,5 @@ jobs:
         with:
           app-name: 'phatcharida-backend'
           slot-name: 'Production'
-          
+          package: .
+          startup-command: 'bash startup.sh'
